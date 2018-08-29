@@ -97,17 +97,17 @@ static void run_app (GtkWidget *widget, gpointer window){
 	{
 		if (::readDepth_filepath == "") {
 
-			gtk_label_set_text (GTK_LABEL ( FileNotSelectedLabel ), "readDepth file not set!");
+			gtk_label_set_text (GTK_LABEL ( FileNotSelectedLabel ), "ReadDepth file not set!");
 		}
 		
 		if (::svdetect_filepath == "") {
 
-			gtk_label_set_text (GTK_LABEL ( FileNotSelectedLabel ), "SVdetect file not set!");
+			gtk_label_set_text (GTK_LABEL ( FileNotSelectedLabel ), "SVDetect file not set!");
 		}
 		
 		if (::cnvNator_filepath == "") {
 
-			gtk_label_set_text (GTK_LABEL ( FileNotSelectedLabel ), "cnvNator file not set!");
+			gtk_label_set_text (GTK_LABEL ( FileNotSelectedLabel ), "CNVnator file not set!");
 		}
 		
 		if (::filename == ".dat"){
@@ -245,18 +245,18 @@ void mcnvGUI (){
 	
 	matchLabel1 = gtk_label_new ("Do you wish to match it to the reference genome? ");
 		
-	rdLabel1 = gtk_label_new ("readDepth filepath: ");
+	rdLabel1 = gtk_label_new ("ReadDepth filepath: ");
 	rdLabel2 = gtk_label_new ("");
 	
-	svLabel1 = gtk_label_new ("SVdetect filepath: ");
+	svLabel1 = gtk_label_new ("SVDetect filepath: ");
 	svLabel2 = gtk_label_new ("");
 	
 	cnLabel1 = gtk_label_new ("Do you wish to include cnvNator? ");
-	cnLabel2 = gtk_label_new ("cnvNator filepath: ");
+	cnLabel2 = gtk_label_new ("CNVnator filepath: ");
 	cnLabel3 = gtk_label_new ("");
 	
 	
-	outputLabel1 = gtk_label_new ("Output filename: ");
+	outputLabel1 = gtk_label_new ("Output filename:  MetaCNV/Output_files/");
 	outputLabel2 = gtk_label_new (".dat");
 	
 	//::runLabel = gtk_label_new ("");

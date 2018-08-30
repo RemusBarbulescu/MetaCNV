@@ -6,7 +6,7 @@ void compressF(std::vector<cnvFrame> const &cnv){
 	std::string filepath = "../Output Files/" + ::filename;
 	std::ofstream fout(filepath.c_str());
 	cnvFrame buffer("", 0, 0, 0, 0, 0, ""); // making all the members NULL
-	fout << "chr\t" << "start\t" << "end\t" << "bin length(kb)\t" << "cnv\t" << "RD.cnv\t" << "SV.cnv\t" << "comments\t" << std::endl;
+	fout << "chr\t" << "segment..start\t" << "segment.end\t" << "segment.length(kb)\t" << "MetaCNV.CN\t" << "RD.CN\t" << "SV.CN\t" << "MetaCNV.comments\t" << std::endl;
 	fout << std::fixed << std::setprecision(1);
 	
 	for(int i = 0; i < cnv.size(); ++i){
@@ -43,7 +43,7 @@ void compressF(std::vector<cnvFrame> const &cnv){
 		}
 	}
 	if (::match == "Yes"){
-		std::cout << "Matching CNV to the reference genome ..." << std::endl;
+		std::cout << "Mapping MetaCNV to the reference genome GRCh38 ..." << std::endl;
 		match_to_ref(filepath);
 	}
 }

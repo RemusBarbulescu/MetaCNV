@@ -10,7 +10,7 @@ void normalizeF(std::vector<NewSegmentFrame> &cnv, std::vector <cnvNatorFrame> &
 	for (int i = 0; i < cnv.size(); ++i){
 		auto searchRD = freqRD.find(cnv[i].rdValue);
 		
-		e_factor = pow((1 + (cnv[i].svValue/100)), 0.75 * cnv[i].svValue);
+		e_factor = pow( (1 + (cnv[i].svValue/100) ), (0.75 * cnv[i].svValue) );
 		cnv[i].svValue = cnv[i].svValue * e_factor;
 		
 		if (searchRD == freqRD.end()){
@@ -34,6 +34,6 @@ void normalizeF(std::vector<NewSegmentFrame> &cnv, std::vector <cnvNatorFrame> &
 		factor = std::min (cnv[i].rdValue/2.0, 1.0);
 		cnv[i].rdValue = cnv[i].rdValue + (factor * bias);
 	}
-	std::cout << "Combining readDepth and SVdetect ..." << std::endl;
+	std::cout << "Combining ReadDepth and SVDetect ..." << std::endl;
 	combineF(cnv, cnvNator);
 }

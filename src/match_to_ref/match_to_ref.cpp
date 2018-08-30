@@ -72,7 +72,7 @@ void match_to_ref(std::string filepath)
 {
 	std::ifstream cnv_in(filepath);
 	std::ifstream gene_in("../Input Files/Homo_sapiens.GRCh38.84_onlyExons.gtf");
-	std::string match_filepath = "../Output Files/matched_to_refGenome/Homo_sapiens.GRCh38.84_" + ::filename;
+	std::string match_filepath = "../Output Files/matched_to_refGenome/MetaCNV_mappedtoGRCh38.84_exons_" + ::filename;
 	cnv_out.open(match_filepath);
 	
 	
@@ -85,7 +85,7 @@ void match_to_ref(std::string filepath)
 	std::string line;
 	std::vector <std::string> lineSplit;
 	
-    cnv_out << "chr\t" << "cnv.start\t" << "cnv.end\t" << "cnv" << std::endl; 
+    cnv_out << "chr\t" << "metaCNV.start\t" << "metaCNV.end\t" << "metaCNV.cn" << std::endl; 
 	while (std::getline(cnv_in, line)) {
 		boost::split(lineSplit, line, boost::is_any_of("\t"));
 			if (lineSplit[0] != "chr" && lineSplit[0] != "Chr" && lineSplit[0] != "CHR" 

@@ -3,7 +3,7 @@
 
 void cnv_nator_female (std::vector <cnvNatorFrame> &cnvNator){
 	
-	std::cout << "Extracting cnvNator data..." << std::endl;
+	std::cout << "Extracting CNVnator data..." << std::endl;
 
 	std::ifstream cnv_in (::cnvNator_filepath.c_str());
 	

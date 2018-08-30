@@ -4,7 +4,7 @@
 
 void cnv_nator(std::vector <cnvNatorFrame> &cnvNator, std::vector <cnvNatorFrame> &cnvNatorXY ){
 					
-	std::cout << "Extracting cnvNator data..." << std::endl;
+	std::cout << "Extracting CNVnator data..." << std::endl;
 	
 	std::ifstream cnv_in (::cnvNator_filepath.c_str());
 	

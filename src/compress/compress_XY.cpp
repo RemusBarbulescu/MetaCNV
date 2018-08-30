@@ -9,7 +9,7 @@ void compress_XY(std::vector<cnvFrame> const &cnvXY){
 	std::ofstream fout_XY(filepath.c_str());
 	cnvFrame buffer("", 0, 0, 0, 0, 0, ""); // making all the members NULL
 	fout_XY << std::fixed << std::setprecision(1);
-	fout_XY << "chr\t" << "start\t" << "end\t" << "bin length(kb)\t" << "cnv\t" << "RD.cnv\t" << "SV.cnv\t" << "comments\t" << std::endl;
+	fout_XY << "chr\t" << "segment.start\t" << "segment.end\t" << "segment.length(kb)\t" << "MetaCNV.CN\t" << "RD.CN\t" << "SV.CN\t" << "MetaCNV.comments\t" << std::endl;
 
 	
 	for(int i = 0; i < cnvXY.size(); ++i){
@@ -46,7 +46,7 @@ void compress_XY(std::vector<cnvFrame> const &cnvXY){
 		}
 	}
 	if (::match == "Yes"){
-		std::cout << "Matching CNV values (for chr X and Y) to the reference genome ..." << std::endl;
+		std::cout << "Mapping MetaCNV (for autosomes) to reference genome GRCh38 ..." << std::endl;
 		match_to_ref(filepath);
 	}
 }

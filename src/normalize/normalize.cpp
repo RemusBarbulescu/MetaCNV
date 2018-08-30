@@ -12,7 +12,7 @@ void normalize(std::vector<NewSegmentFrame> &cnv, std::vector <cnvNatorFrame> &c
 		auto searchRD = freqRD.find(cnv[i].rdValue);
 		
 		// Normalizing SVdetect values
-		e_factor = pow((1 + (cnv[i].svValue/100)), 0.75 * cnv[i].svValue);
+		e_factor = pow( (1 + (cnv[i].svValue / 100) ), (0.75 * cnv[i].svValue) );
 		cnv[i].svValue = cnv[i].svValue * e_factor;
 		
 		//Checking whether the value of the cnv was inserted into the vector before
@@ -43,6 +43,6 @@ void normalize(std::vector<NewSegmentFrame> &cnv, std::vector <cnvNatorFrame> &c
 		cnv[i].rdValue = cnv[i].rdValue + (factor * bias);
 	}
 	
-	std::cout << "Combining readDepth and SVdetect ..." << std::endl;
+	std::cout << "Combining ReadDepth and SVDetect ..." << std::endl;
 	combine(cnv, cnvNator);
 }

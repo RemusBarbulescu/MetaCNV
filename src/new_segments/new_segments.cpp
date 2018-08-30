@@ -27,14 +27,14 @@ bool newSegments(std::vector <cnvNatorFrame> &cnvNator, std::vector <cnvNatorFra
 	
 	readDepth.open(::readDepth_filepath.c_str());
 	if (readDepth.fail()) {
-		std::cout << "Error opening readDepth file (file does not exist) ..." << std::endl;
+		std::cout << "Error opening ReadDepth file (file does not exist) ..." << std::endl;
 		return EXIT_FAILURE;
 	}
 	
 	
 	svdetect.open(::svdetect_filepath.c_str());
 	if (svdetect.fail()) {
-		std::cout << "Error opening SVdetect file (file does not exist) ..." << std::endl;
+		std::cout << "Error opening SVDetect file (file does not exist) ..." << std::endl;
 		return EXIT_FAILURE;
 	}
 	
@@ -110,7 +110,7 @@ bool newSegments(std::vector <cnvNatorFrame> &cnvNator, std::vector <cnvNatorFra
 	sv.empty();
 	
 	
-	std::cout << "Normalizing readDepth and SVdetect values..." << std::endl;
+	std::cout << "Normalizing ReadDepth and SVDetect values..." << std::endl;
 	normalize(segment, cnvNator);
 	normalize_XY(segmentXY, cnvNatorXY);
 	

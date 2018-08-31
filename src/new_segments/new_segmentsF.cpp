@@ -19,25 +19,21 @@ bool compareDataF(const cnvSegs& i, const cnvSegs& j){
 //
 bool newSegmentsF(std::vector <cnvNatorFrame> &cnvNator){
 	
-
 	std::ifstream readDepth;
 	std::ifstream svdetect;
 	
-	
 	readDepth.open(::readDepth_filepath.c_str());
 	if (readDepth.fail()) {
-		std::cout << "Error opening readDepth file (file does not exist) ..." << std::endl;
+		std::cout << "Error opening ReadDepth file (file does not exist) ..." << std::endl;
 		return EXIT_FAILURE;
 	}
-	
 	
 	svdetect.open(::svdetect_filepath.c_str());
 	if (svdetect.fail()) {
-		std::cout << "Error opening SVdetect file (file does not exist) ..." << std::endl;
+		std::cout << "Error opening SVDetect file (file does not exist) ..." << std::endl;
 		return EXIT_FAILURE;
 	}
 	
-
 	std::cout << "Creating the new segment file ..." << std::endl;
 	
 	std::vector <cnvSegs> rd; // readDepth vector
@@ -92,6 +88,6 @@ bool newSegmentsF(std::vector <cnvNatorFrame> &cnvNator){
 	rd.empty();
 	sv.empty();
 	
-	std::cout << "Normalizing readDepth values ..." << std::endl;
+	std::cout << "Normalizing ReadDepth values ..." << std::endl;
 	normalizeF(segment, cnvNator);
 }

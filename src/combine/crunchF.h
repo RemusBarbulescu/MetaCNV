@@ -26,7 +26,8 @@ extern bool crunchF (std::vector <cnvSegs> &rd, std::vector <cnvSegs> &sv, std::
 	for ( int i = 0; i < rd.size(); ++i ){
 		segBuffer.chr = rd[i].chr; 
 		segBuffer._start = rd[i]._start;
-		segBuffer._end = 0;
+		//segBuffer._end = 0;
+        segBuffer._end = rd[i]._end;
 		segBuffer.rdValue = rd[i].value;
 		segBuffer.svValue = 0.0;
 		
@@ -47,7 +48,8 @@ extern bool crunchF (std::vector <cnvSegs> &rd, std::vector <cnvSegs> &sv, std::
 	for ( int i = 0; i < sv.size(); ++i ){
 		segBuffer.chr = sv[i].chr; 
 		segBuffer._start = sv[i]._start; 
-		segBuffer._end = 0; 
+		//segBuffer._end = 0; 
+        segBuffer._end = sv[i]._end; 
 		segBuffer.rdValue = 0.0;
 		segBuffer.svValue = sv[i].value;
 		if (segBuffer.chr != "Y" && segBuffer.chr != "X")

@@ -31,7 +31,8 @@ std::vector <NewSegmentFrame> &segment,std::vector <NewSegmentFrame> &segmentXY)
 	for ( int i = 0; i < rd.size(); ++i ){
 		segBuffer.chr = rd[i].chr; 
 		segBuffer._start = rd[i]._start; // inserting start value
-		segBuffer._end = 0;
+        //segBuffer._end = 0;
+		segBuffer._end = rd[i]._end; 
 		segBuffer.rdValue = rd[i].value;
 		segBuffer.svValue = 0.0;
 		
@@ -52,7 +53,8 @@ std::vector <NewSegmentFrame> &segment,std::vector <NewSegmentFrame> &segmentXY)
 	for ( int i = 0; i < sv.size(); ++i ){
 		segBuffer.chr = sv[i].chr; 
 		segBuffer._start = sv[i]._start; 
-		segBuffer._end = 0; 
+        //segBuffer._end = 0;
+		segBuffer._end = sv[i]._end; 
 		segBuffer.rdValue = 0.0;
 		segBuffer.svValue = sv[i].value;
 		if (segBuffer.chr != "Y" && segBuffer.chr != "X")
@@ -74,7 +76,6 @@ std::vector <NewSegmentFrame> &segment,std::vector <NewSegmentFrame> &segmentXY)
 	
 	for ( int i = 0; i < buffer.size() - 1; ++i){
 		
-		
 		if (buffer[i].chr == buffer[i+1].chr){
 			
 			if (i + 1 < buffer.size() - 1){
@@ -85,9 +86,7 @@ std::vector <NewSegmentFrame> &segment,std::vector <NewSegmentFrame> &segmentXY)
 					segBuffer._start = buffer[i]._start;
 					segBuffer._end = buffer[i+1]._start;
 					
-					
 					for (j; j < rd.size(); ++j){
-						
 						
 						if (rd[j].chr == segBuffer.chr){
 							
@@ -162,9 +161,7 @@ std::vector <NewSegmentFrame> &segment,std::vector <NewSegmentFrame> &segmentXY)
 					segBuffer._start = bufferXY[i]._start;
 					segBuffer._end = bufferXY[i+1]._start;
 					
-					
 					for (j; j < rd.size(); ++j){
-						
 						
 						if (rd[j].chr == segBuffer.chr){
 							

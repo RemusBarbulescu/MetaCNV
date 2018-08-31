@@ -8,9 +8,8 @@ void compress(std::vector<cnvFrame> const &cnv){
 	std::ofstream fout(boost::lexical_cast<std::string>(filepath));
 	cnvFrame buffer("", 0, 0, 0, 0, 0, ""); // making all the members NULL
 	fout << std::fixed << std::setprecision(1);
-	fout << "chr\t" << "start\t" << "end\t" << "CN\t" << "RD.CN\t" << "SV.CN\t" << "comments\t" << std::endl;
-	
-	
+	fout << "chr\t" << "segment.start\t" << "segment.end\t" << "segment.length\t" <<  "MetaCNV.cn\t" << "RD.cn\t" << "SV.cn\t" << "MetaCNV.comments\t" << std::endl;
+		
 	for(int i = 0; i < cnv.size(); ++i){
 		
 		if (buffer.chr.empty()){
@@ -31,8 +30,8 @@ void compress(std::vector<cnvFrame> const &cnv){
 				}
 			}
 			else{
-				fout << buffer.chr << "\t" << buffer._start << "\t" << buffer._end << "\t" << buffer.value 
-				<< "\t" << buffer.rdValue << "\t" << buffer.svValue << "\t" << buffer.comment << std::endl;
+				fout << buffer.chr << "\t" << buffer._start << "\t" << buffer._end << "\t" << buffer._end - buffer._start 
+                << "\t" << buffer.value << "\t" << buffer.rdValue << "\t" << buffer.svValue << "\t" << buffer.comment << std::endl;
 				buffer.chr = cnv[i].chr;
 				buffer._start = cnv[i]._start;
 				buffer._end = cnv[i]._end;
@@ -44,7 +43,7 @@ void compress(std::vector<cnvFrame> const &cnv){
 		}
 	}
 	if (::match == "Yes"){
-		std::cout << "Matching CNV values (for chr 1-22) to the reference genome ..." << std::endl;
+		std::cout << "Mapping MetaCNV output (for chr1 -chr22) to the reference genome GRCh38.84 ..." << std::endl;
 		match_to_ref(filepath);
 	}
 }

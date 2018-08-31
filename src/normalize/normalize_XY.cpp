@@ -6,8 +6,7 @@ void normalize_XY(std::vector<NewSegmentFrame> &cnv, std::vector <cnvNatorFrame>
 	std::map <float, int> freqRD;
 	short int ploidity = 1;
 	float bias, factor, e_factor;
-	
-	
+		
 	for (int i = 0; i < cnv.size(); ++i){
 		auto searchRD = freqRD.find(cnv[i].rdValue);
 		
@@ -22,7 +21,6 @@ void normalize_XY(std::vector<NewSegmentFrame> &cnv, std::vector <cnvNatorFrame>
 		}
 	}
 	
-	
 	int local_maximum = 0;
 	float local_maximum_value = 0;
 	
@@ -32,12 +30,17 @@ void normalize_XY(std::vector<NewSegmentFrame> &cnv, std::vector <cnvNatorFrame>
 			local_maximum_value = i.first;
 		}
 	}
-	bias = ploidity - local_maximum_value;
+	
+    bias = ploidity - local_maximum_value;
+    
+    if (bias > 0.5) {
+        bias =0;
+    }
+    
 	for (int i = 0; i < cnv.size(); ++i){
 		factor = std::min (cnv[i].rdValue/2.0, 1.0);
 		cnv[i].rdValue = cnv[i].rdValue + (factor * bias);
 	}
-	
 	
 	combine_XY(cnv, cnvNatorXY);
 }

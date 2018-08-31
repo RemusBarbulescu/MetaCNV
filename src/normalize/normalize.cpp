@@ -6,12 +6,11 @@ void normalize(std::vector<NewSegmentFrame> &cnv, std::vector <cnvNatorFrame> &c
 	std::map <float, int> freqRD;
 	short int ploidity = 2;
 	float bias, factor, e_factor;
-	
-	
+		
 	for (int i = 0; i < cnv.size(); ++i){
 		auto searchRD = freqRD.find(cnv[i].rdValue);
 		
-		// Normalizing SVdetect values
+		// Normalizing SVDetect values
 		e_factor = pow((1 + (cnv[i].svValue/100)), 0.75 * cnv[i].svValue);
 		cnv[i].svValue = cnv[i].svValue * e_factor;
 		
@@ -25,7 +24,6 @@ void normalize(std::vector<NewSegmentFrame> &cnv, std::vector <cnvNatorFrame> &c
 		}
 	}
 	
-	
 	//Calculate local maximum value;
 	int local_maximum = 0;
 	float local_maximum_value = 0;
@@ -38,12 +36,16 @@ void normalize(std::vector<NewSegmentFrame> &cnv, std::vector <cnvNatorFrame> &c
 	}
 
 	bias = ploidity - local_maximum_value;
+    
+    if (bias > 0.5) {
+        bias =0;
+    }
 
 	for (int i = 0; i < cnv.size(); ++i){
 		factor = std::min(cnv[i].rdValue/2.0, 1.0);
 		cnv[i].rdValue = cnv[i].rdValue + (factor * bias);
 	}
 	
-	std::cout << "Combining readDepth and SVdetect ..." << std::endl;
+	std::cout << "Combining ReadDepth and SVDetect ..." << std::endl;
 	combine(cnv, cnvNator);
 }

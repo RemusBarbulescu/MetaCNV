@@ -30,10 +30,15 @@ void normalizeF(std::vector<NewSegmentFrame> &cnv, std::vector <cnvNatorFrame> &
 	}
 	
 	bias = ploidity - local_maximum_value;
+    
+    if (bias > 0.5){
+        bias = 0;
+    }
+    
 	for (int i = 0; i < cnv.size(); ++i){
 		factor = std::min (cnv[i].rdValue/2.0, 1.0);
 		cnv[i].rdValue = cnv[i].rdValue + (factor * bias);
 	}
-	std::cout << "Combining readDepth and SVdetect ..." << std::endl;
+	std::cout << "Combining ReadDepth and SVDetect ..." << std::endl;
 	combineF(cnv, cnvNator);
 }

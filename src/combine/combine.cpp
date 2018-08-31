@@ -152,11 +152,11 @@ void combine(std::vector<NewSegmentFrame> const &cnv, std::vector <cnvNatorFrame
 	}
 	for (int i = 0; i < cnv_combined.size(); ++i){
 
-		if (cnv_combined[i].comment == "Conflict1:RD.MEAN" && ((cnv_combined[i-1].comment == "RD" && cnv_combined[i+1].comment == "RD") ||
-		(cnv_combined[i-1].comment == "SV" && cnv_combined[i+1].comment == "SV"))){
+		if ( (cnv_combined[i].comment == "Conflict 1 (RD:AMP, SV:DEL)" || cnv_combined[i].comment == "Conflict 2 (RD:DEL, SV:AMP)" )  && 
+            ( (cnv_combined[i-1].comment == "RD" && cnv_combined[i+1].comment == "RD") || (cnv_combined[i-1].comment == "SV" && cnv_combined[i+1].comment == "SV") ) ) {
 			cnv_combined[i].value = cnv_combined[i-1].value;
 			cnv_combined[i].comment = "Removed(Conflict 1) - " + cnv_combined[i-1].comment;
-		}
+        }
 	}
 	std::cout << "Compressing ..." << std::endl;
 	compress(cnv_combined);

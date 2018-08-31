@@ -94,6 +94,7 @@ extern bool crunchF (std::vector <cnvSegs> &rd, std::vector <cnvSegs> &sv, std::
 								if (rd[j]._start > segBuffer._start && rd[j]._start < segBuffer._end){
 									
 									segBuffer.rdValue = rd[j].value;
+									++j;
 									break;
 								}
 								else{

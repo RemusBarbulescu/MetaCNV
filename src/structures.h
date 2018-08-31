@@ -54,6 +54,8 @@ extern std::vector <cnvNatorFrame> cnvNatorXY;*/
 //extern GtkWidget *runLabel;
 extern std::string gender;
 extern std::string match;
+extern std::string matchGenes;
+extern std::string matchExons;
 extern std::string filename;
 extern std::string filenameXY;
 extern std::string readDepth_filepath;

@@ -1,5 +1,6 @@
 #include "../compress/compress_XY.h"
 #include "../match_to_ref/match_to_ref.h"
+#include "../match_to_ref/match_to_refGenes.h"
 
 void compress_XY(std::vector<cnvFrame> const &cnvXY){
 	
@@ -9,8 +10,7 @@ void compress_XY(std::vector<cnvFrame> const &cnvXY){
 	std::ofstream fout_XY(filepath.c_str());
 	cnvFrame buffer("", 0, 0, 0, 0, 0, ""); // making all the members NULL
 	fout_XY << std::fixed << std::setprecision(1);
-	fout_XY << "chr\t" << "segment.start\t" << "segment.end\t" << "segment.length(kb)\t" << "MetaCNV.CN\t" << "RD.CN\t" << "SV.CN\t" << "MetaCNV.comments\t" << std::endl;
-
+	fout_XY << "chr\t" << "segment.start\t" << "segment.end\t" << "segment.length\t" << "MetaCNV.cn\t" << "RD.cn\t" << "SV.cn\t" << "MetaCNV.comments\t" << std::endl;
 	
 	for(int i = 0; i < cnvXY.size(); ++i){
 		
@@ -32,8 +32,8 @@ void compress_XY(std::vector<cnvFrame> const &cnvXY){
 				}
 			}
 			else{
-				fout_XY << buffer.chr << "\t" << buffer._start << "\t" << buffer._end << "\t" << buffer._end - buffer._start + 1
-				<< "\t" << (buffer._end - buffer._start)/1000.0 << "\t" << buffer.value << "\t" << buffer.rdValue 
+				fout_XY << buffer.chr << "\t" << buffer._start << "\t" << buffer._end << "\t" << buffer._end - buffer._start
+				<< "\t" << buffer.value << "\t" << buffer.rdValue 
 				<< "\t" << buffer.svValue << "\t" << buffer.comment << std::endl;
 				buffer.chr = cnvXY[i].chr;
 				buffer._start = cnvXY[i]._start;

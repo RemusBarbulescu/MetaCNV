@@ -14,6 +14,8 @@
 
 std::string gender = "";
 std::string match = "";
+std::string matchGenes = "";
+std::string matchExons = "";
 std::string filename = "";
 std::string filenameXY = "";
 std::string readDepth_filepath = "";

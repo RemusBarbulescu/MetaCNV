@@ -13,7 +13,7 @@ void normalize(std::vector<NewSegmentFrame> &cnv, std::vector <cnvNatorFrame> &c
 		
 		// Normalizing SVdetect values
 		e_factor = pow( (1 + (cnv[i].svValue / 100) ), (0.75 * cnv[i].svValue) );
-		cnv[i].svValue = cnv[i].svValue * e_factor;
+		cnv[i].svValue = cnv[i].svValue ; //* e_factor;
 		
 		//Checking whether the value of the cnv was inserted into the vector before
 		if (searchRD == freqRD.end()){
@@ -37,9 +37,15 @@ void normalize(std::vector<NewSegmentFrame> &cnv, std::vector <cnvNatorFrame> &c
 		}
 	}
 	bias = ploidity - local_maximum_value;
+    
+    if (bias >= 0.5) {
+        bias = 0.0;
+    }
+   //bias = 0.0;
 
 	for (int i = 0; i < cnv.size(); ++i){
 		factor = std::min(cnv[i].rdValue/2.0, 1.0);
+        //factor=1.0;
 		cnv[i].rdValue = cnv[i].rdValue + (factor * bias);
 	}
 	

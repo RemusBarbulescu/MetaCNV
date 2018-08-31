@@ -209,6 +209,21 @@ static void run_app (GtkWidget *widget, gpointer window){
 			else{
 				::match = "No";
 			}
+            
+            if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON ( matchRadioGenesYes )) == TRUE){
+				::matchGenes = "Yes";
+			}
+			
+			else{
+				::matchGenes = "No";
+			}
+
+            if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON ( matchRadioExonsYes )) == TRUE){
+				::matchExons = "Yes";
+			}
+			else{
+				::matchExons = "No";
+			}
 			
 			::readDepth_filepath = gtk_label_get_text (GTK_LABEL ( rdLabel2 ));
 			::svdetect_filepath = gtk_label_get_text (GTK_LABEL ( svLabel2 ));
@@ -256,10 +271,14 @@ void mcnvGUI (){
 	
 	runButton = gtk_button_new_with_label ("   Run MetaCNV  ");
     gtk_widget_set_size_request(runButton, 80, 50);
+    GdkRGBA bg_run = { 0.5, 0, 1, 0.2 };
+    gtk_widget_override_background_color(runButton, GTK_STATE_FLAG_NORMAL, &bg_run);
 	g_signal_connect (runButton, "clicked", G_CALLBACK (run_app), window);
 	
     closeButton = gtk_button_new_with_label ("   Close MetaCNV ");
     gtk_widget_set_size_request(closeButton, 80, 50);
+    GdkRGBA bg_close = { 0.75, 0.75, 0.75, 1 };
+    gtk_widget_override_background_color(closeButton, GTK_STATE_FLAG_NORMAL, &bg_close);
 	g_signal_connect (closeButton, "clicked", G_CALLBACK (gtk_main_quit), window);
 	
     
@@ -273,14 +292,14 @@ void mcnvGUI (){
 	
     inputtitleLabel = gtk_label_new ("\tInput files");
 	rdLabel1 = gtk_label_new ("\t\tReadDepth filepath\t");
-	rdLabel2 = gtk_label_new ("");
+	rdLabel2 = gtk_label_new ("\t\t");
 	
 	svLabel1 = gtk_label_new ("\t\tSVDetect filepath\t");
-	svLabel2 = gtk_label_new ("");
+	svLabel2 = gtk_label_new ("\t\t");
 	
 	cnLabel1 = gtk_label_new ("\t\tDo you wish to include CNVnator? ");
 	cnLabel2 = gtk_label_new ("\t\tCNVnator filepath:\t");
-	cnLabel3 = gtk_label_new ("");
+	cnLabel3 = gtk_label_new ("\t\t");
 		
     outputtitleLabel = gtk_label_new ("\tOutput file " );
 	outputLabel1 = gtk_label_new ("\t\tMetaCNV filename in path  MetaCNV/Output_files/");
@@ -327,13 +346,14 @@ void mcnvGUI (){
     
     matchRadioGenesNo = gtk_radio_button_new_with_label (NULL, "No");
 	matchRadioGenesYes = gtk_radio_button_new_with_label (gtk_radio_button_get_group (GTK_RADIO_BUTTON ( matchRadioGenesNo )), "Yes");
+    
     matchRadioExonsNo = gtk_radio_button_new_with_label (NULL, "No");
     matchRadioExonsYes = gtk_radio_button_new_with_label (gtk_radio_button_get_group (GTK_RADIO_BUTTON ( matchRadioExonsNo )), "Yes");
     g_signal_connect (matchRadioNo, "clicked", G_CALLBACK (map_deactivate), window);
     g_signal_connect (matchRadioYes, "clicked", G_CALLBACK (map_activate), window);
         
 	cnRadioNo = gtk_radio_button_new_with_label (NULL, "No");
-	g_signal_connect (cnRadioNo, "clicked", G_CALLBACK (cnFile_deactivate), window);
+    g_signal_connect (cnRadioNo, "clicked", G_CALLBACK (cnFile_deactivate), window);
 	cnRadioYes = gtk_radio_button_new_with_label (gtk_radio_button_get_group (GTK_RADIO_BUTTON ( cnRadioNo )), "Yes");
 	g_signal_connect (cnRadioYes, "clicked", G_CALLBACK (cnFile_activate), window);
 	
@@ -481,6 +501,10 @@ void mcnvGUI (){
 		
 	}
 	
+    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON ( matchRadioNo )) == TRUE) {
+		gtk_widget_set_sensitive (matchLabel2, FALSE);
+		gtk_widget_set_sensitive (matchLabel3, FALSE);
+	}
 	////////////////////////////////////////////////////
 	
 	gtk_container_add (GTK_CONTAINER ( window ), box);

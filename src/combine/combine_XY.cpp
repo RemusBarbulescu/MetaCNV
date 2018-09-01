@@ -66,12 +66,12 @@ void combine_XY(std::vector<NewSegmentFrame> const &cnv, std::vector <cnvNatorFr
 								cnv[i]._start < cnvNatorXY[k]._end)){
 								
 									if (cnvNatorXY[k].mutation == "deletion"){
-										cnv_combined.emplace_back(cnv[i].chr, cnv[i]._start, cnv[i]._end, std::min(cnv[i].rdValue, cnv[i].svValue), cnv[i].rdValue, cnv[i].svValue, "Conflict 1 (RD:AMP, SV:DEL) judge:CNVnator");
+										cnv_combined.emplace_back(cnv[i].chr, cnv[i]._start, cnv[i]._end, std::min(cnv[i].rdValue, cnv[i].svValue), cnv[i].rdValue, cnv[i].svValue, "Conflict 1 (RD:AMP, SV:DEL) judge:CNVnator:DEL");
 										found = true;
 										break;
 									}
 									else{
-										cnv_combined.emplace_back(cnv[i].chr, cnv[i]._start, cnv[i]._end, std::max(cnv[i].rdValue, cnv[i].svValue), cnv[i].rdValue, cnv[i].svValue, "Conflict 1 (RD:AMP, SV:DEL) judge:CNVnator");
+										cnv_combined.emplace_back(cnv[i].chr, cnv[i]._start, cnv[i]._end, std::max(cnv[i].rdValue, cnv[i].svValue), cnv[i].rdValue, cnv[i].svValue, "Conflict 1 (RD:AMP, SV:DEL) judge:CNVnator:AMP");
 										found = true;
 										break;
 									}
@@ -100,12 +100,12 @@ void combine_XY(std::vector<NewSegmentFrame> const &cnv, std::vector <cnvNatorFr
 									cnv[i]._start < cnvNatorXY[k]._end)){
 								
 										if (cnvNatorXY[k].mutation == "deletion"){
-											cnv_combined.emplace_back(cnv[i].chr, cnv[i]._start, cnv[i]._end, std::min(cnv[i].rdValue, cnv[i].svValue), cnv[i].rdValue, cnv[i].svValue, "Conflict 2 (RD:DEL, SV:AMP) judge:CNVnator");
+											cnv_combined.emplace_back(cnv[i].chr, cnv[i]._start, cnv[i]._end, std::min(cnv[i].rdValue, cnv[i].svValue), cnv[i].rdValue, cnv[i].svValue, "Conflict 2 (RD:DEL, SV:AMP) judge:CNVnator:DEL");
 											found = true;
 											break;
 										}
 										else{
-											cnv_combined.emplace_back(cnv[i].chr, cnv[i]._start, cnv[i]._end, std::max(cnv[i].rdValue, cnv[i].svValue), cnv[i].rdValue, cnv[i].svValue, "Conflict 2 (RD:DEL, SV:AMP) judge:CNVnator");
+											cnv_combined.emplace_back(cnv[i].chr, cnv[i]._start, cnv[i]._end, std::max(cnv[i].rdValue, cnv[i].svValue), cnv[i].rdValue, cnv[i].svValue, "Conflict 2 (RD:DEL, SV:AMP) judge:CNVnator:AMP");
 											found = true;
 											break;
 										}
@@ -146,7 +146,7 @@ void combine_XY(std::vector<NewSegmentFrame> const &cnv, std::vector <cnvNatorFr
 					if (cnv[i].rdValue != NULL && cnv[i].svValue == NULL){
 						nr_decimals << std::fixed << cnv[i].rdValue;
 						nr_decimals >> cnv_value;
-						cnv_combined.emplace_back(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv_value, cnv[i].rdValue, cnv[i].svValue, "RD (SV is null)");
+						cnv_combined.emplace_back(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv_value, cnv[i].rdValue, cnv[i].svValue, "RD (SV is Null)");
 						nr_decimals.clear();
 					}
 					else{
@@ -157,12 +157,12 @@ void combine_XY(std::vector<NewSegmentFrame> const &cnv, std::vector <cnvNatorFr
 		}
 	}
 	for (int i = 0; i < cnv_combined.size(); ++i){
-		
+		/* // I think we should skip this since there is no cn=ploidy anymore
 		if ( (cnv_combined[i].comment == "Conflict 1 (RD:AMP, SV:DEL)" || cnv_combined[i].comment == "Conflict 2 (RD:DEL, SV:AMP)" )  && 
             ( (cnv_combined[i-1].comment == "RD" && cnv_combined[i+1].comment == "RD") || (cnv_combined[i-1].comment == "SV" && cnv_combined[i+1].comment == "SV") ) ) {
 			cnv_combined[i].value = cnv_combined[i-1].value;
 			cnv_combined[i].comment = "Removed(Conflict 1) - " + cnv_combined[i-1].comment;
-		}
+		}*/
 	}
 	compress_XY(cnv_combined);
 }

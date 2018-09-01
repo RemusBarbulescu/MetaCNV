@@ -30,7 +30,7 @@ static void rdOpen_dialog (GtkWidget *widget, gpointer window){
 	if (resp == GTK_RESPONSE_OK){
 		gtk_label_set_text (GTK_LABEL ( rdLabel2 ), gtk_file_chooser_get_filename(GTK_FILE_CHOOSER ( dialog )));
 	}
-		
+    
 	gtk_widget_destroy ( dialog );
 	
 }
@@ -68,9 +68,8 @@ static void cnvNatorOpen_dialog (GtkWidget *widget, gpointer window){
 	if (resp == GTK_RESPONSE_OK){
 		gtk_label_set_text (GTK_LABEL ( cnLabel3 ), gtk_file_chooser_get_filename(GTK_FILE_CHOOSER ( dialog )));
 	}
-		
+
 	gtk_widget_destroy ( dialog );
-	
 }
 
 static void cnFile_activate (GtkWidget *widget, gpointer window){
@@ -114,6 +113,7 @@ static void run_app (GtkWidget *widget, gpointer window){
 	::filename = gtk_entry_get_text (GTK_ENTRY ( outputEntry ));
 	::filenameXY = ::filename + "_XY.dat";
 	::filename = ::filename + ".dat";
+    gtk_label_set_text (GTK_LABEL ( FileNotSelectedLabel ), "MetaCNV is running .... " );
 	
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON ( cnRadioYes )) == TRUE)
 	{
@@ -149,7 +149,7 @@ static void run_app (GtkWidget *widget, gpointer window){
 				::gender = "Female";
 			}
 			
-			if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON ( matchRadioYes )) == TRUE){
+			if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON ( matchRadioExonsYes )) == TRUE){
 				
 				::match = "Yes";
 				
@@ -159,14 +159,22 @@ static void run_app (GtkWidget *widget, gpointer window){
 				::match = "No";
 			}
 			
+			if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON ( matchRadioGenesYes )) == TRUE){
+				
+				::matchGenes = "Yes";
+				
+			}
+			
+			else{
+				::matchGenes = "No";
+			}
 			::readDepth_filepath = gtk_label_get_text (GTK_LABEL ( rdLabel2 ));
 			::svdetect_filepath = gtk_label_get_text (GTK_LABEL ( svLabel2 ));
 			::cnvNator_option = "Yes";
 			::cnvNator_filepath = gtk_label_get_text (GTK_LABEL ( cnLabel3 ));
-			gtk_label_set_text (GTK_LABEL ( FileNotSelectedLabel), "");
+			gtk_label_set_text (GTK_LABEL ( FileNotSelectedLabel ), "MetaCNV is running .... " ); //this is not working 
 			
 			gtk_main_quit();
-			
 		}
 	}
 	else {
@@ -196,7 +204,7 @@ static void run_app (GtkWidget *widget, gpointer window){
 				::gender = "Female";
 			}
 			
-			if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON ( matchRadioYes )) == TRUE){
+			if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON ( matchRadioExonsYes )) == TRUE){
 				
 				::match = "Yes";
 				
@@ -205,10 +213,20 @@ static void run_app (GtkWidget *widget, gpointer window){
 			else{
 				::match = "No";
 			}
+
+			if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON ( matchRadioGenesYes )) == TRUE){
+				
+				::matchGenes = "Yes";
+				
+			}
+			
+			else{
+				::matchGenes = "No";
+			}
 			
 			::readDepth_filepath = gtk_label_get_text (GTK_LABEL ( rdLabel2 ));
 			::svdetect_filepath = gtk_label_get_text (GTK_LABEL ( svLabel2 ));
-			gtk_label_set_text (GTK_LABEL ( FileNotSelectedLabel), "");
+			gtk_label_set_text (GTK_LABEL ( FileNotSelectedLabel ), "MetaCNV is running .... " ); //this is not working 
 			
 			/*if (::gender == "Male"){
 				if (::cnvNator_option == "Yes"){
@@ -227,14 +245,12 @@ static void run_app (GtkWidget *widget, gpointer window){
 	
 }
 
-
 void mcnvGUI (){
 	
 	window = gtk_window_new ( GTK_WINDOW_TOPLEVEL );
 	gtk_widget_set_size_request (window, 600, 400);
 	gtk_window_set_title(GTK_WINDOW ( window ), "MetaCNV ");
 	g_signal_connect (window, "delete-event", G_CALLBACK(gtk_main_quit), NULL);
-	
 	
 	/*********************** BUTTONS ***********************/
 	
@@ -247,18 +263,22 @@ void mcnvGUI (){
 	cnButton = gtk_button_new_with_label ("Choose filepath");
 	g_signal_connect (cnButton, "clicked", G_CALLBACK (cnvNatorOpen_dialog), window);
 	
-	runButton = gtk_button_new_with_label ("   Run MetaCNV  ");
-    gtk_widget_set_size_request(runButton, 80, 50);
+	runButton = gtk_button_new_with_label ("  Run MetaCNV  ");
+    gtk_widget_set_size_request(runButton, 90, 50);
+    GdkRGBA bg_run = { 0.75, 0, 1, 0.5 };
+	gtk_widget_override_background_color(runButton, GTK_STATE_FLAG_NORMAL, &bg_run);
 	g_signal_connect (runButton, "clicked", G_CALLBACK (run_app), window);
-	
-	 closeButton = gtk_button_new_with_label ("   Close MetaCNV ");
-    gtk_widget_set_size_request(closeButton, 80, 50);
-	g_signal_connect (closeButton, "clicked", G_CALLBACK (gtk_main_quit), window);
+    
+	closeButton = gtk_button_new_with_label (" Close MetaCNV ");
+	gtk_widget_set_size_request(closeButton, 90, 50);
+    GdkRGBA bg_close = { 0.6, 0.6, 0.6, 0.5 };
+	gtk_widget_override_background_color(closeButton, GTK_STATE_FLAG_NORMAL, &bg_close);
+    g_signal_connect (closeButton, "clicked", G_CALLBACK (gtk_main_quit), window);
 	
 	////////////////////////////////////////////////////////
 	
 	/*********************** LABELS ***********************/
-		descriptionLabel1 = gtk_label_new ("  MetaCNV is a copy number caller that infers reliably copy numbers for human genomes with a consensus approach; \n  MetaCNV accepts the results of up to three copy number callers and infers absolute and non-biased copy numbers \n  gap-less for a genome. MetaCNV is based on a meta-model that bypasses weaknesses of current calling models \n  and combines the strength of existing approaches.");
+    descriptionLabel1 = gtk_label_new ("  MetaCNV is a copy number caller that infers reliably copy numbers for human genomes with a consensus approach; \n  MetaCNV accepts the results of up to three copy number callers and infers absolute and non-biased copy numbers \n  gap-less for a genome. MetaCNV is based on a meta-model that bypasses weaknesses of current calling models \n  and combines the strength of existing approaches.");
         
     parametertitleLabel = gtk_label_new ("\tParameters");
     genderLabel2 = gtk_label_new ("\t\tGender: ");
@@ -275,13 +295,13 @@ void mcnvGUI (){
 	cnLabel3 = gtk_label_new ("");
 		
     outputtitleLabel = gtk_label_new ("\tOutput file " );
-	outputLabel1 = gtk_label_new ("\t\tMetaCNV file in path  MetaCNV/Output_files/");
+	outputLabel1 = gtk_label_new ("\t\tMetaCNV file in path MetaCNV/Output_files/");
 	outputLabel2 = gtk_label_new (".dat");
     
     mappingtitleLabel = gtk_label_new ("\tMapping to a reference genome");
-	matchLabel1 = gtk_label_new ("\t\tDo you wish to match MetaCNV's output to GRCh38 reference genome? ");
-    matchLabel2 = gtk_label_new ("\t\t\t\t\t\t\t\t\ton GRCh38 gene level ");
-    matchLabel3 = gtk_label_new ("\t\t\t\t\t\t\t\t\ton GRCh38 exon level ");
+	matchLabel1 = gtk_label_new ("\t\tDo you wish to match MetaCNV's output to the GRCh38 reference genome? ");
+    matchLabel2 = gtk_label_new ("\t\t\t\t\t\t\t\t\tto GRCh38 on gene level ");
+    matchLabel3 = gtk_label_new ("\t\t\t\t\t\t\t\t\tto GRCh38 on exon level ");
 	
 	//::runLabel = gtk_label_new ("");
 	FileNotSelectedLabel = gtk_label_new ("");
@@ -291,7 +311,7 @@ void mcnvGUI (){
 	
 	/*********************** SEPARATOR *********************/
 	
-		hline1 = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
+	hline1 = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
 	hline2 = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
 	hline3 = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
 	hline4 = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
@@ -331,7 +351,7 @@ void mcnvGUI (){
 	//////////////////////////////////////////////////////
 		
 	/*********************** BOXES ***********************/
-	  descriptionBox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+	descriptionBox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 	g_object_set (GTK_BOX ( descriptionBox ), "margin-top", 15, NULL);
 	gtk_box_pack_start (GTK_BOX ( descriptionBox ), descriptionLabel1, 0, 0, 2);
     
@@ -356,17 +376,9 @@ void mcnvGUI (){
     gtk_box_pack_start (GTK_BOX ( rdChooseBox ), rdLabel1, 0, 0, 2);
 	gtk_box_pack_start (GTK_BOX ( rdChooseBox ), rdButton, 0, 0, 2);
     
-    //rdChooseBox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-	//g_object_set (GTK_BOX ( rdChooseBox ), "margin-top", 5, NULL);
-	//gtk_box_pack_start (GTK_BOX ( rdChooseBox ), rdLabel1, 0, 0, 2);
-	//gtk_box_pack_start (GTK_BOX ( rdChooseBox ), rdButton, 0, 0, 2);
-    
     rdFilepathBox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 5);
 	gtk_box_pack_start (GTK_BOX ( rdFilepathBox ), rdLabel2, 0, 0, 5);
     
-    //rdFilepathBox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 5);
-	//gtk_box_pack_start (GTK_BOX ( rdFilepathBox ), rdLabel2, 0, 0, 5);
-	    
     svChooseBox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 	g_object_set (GTK_BOX ( svChooseBox ), "margin-top", 5, NULL);
 	gtk_box_pack_start (GTK_BOX ( svChooseBox), svLabel1, 0, 0, 2);
@@ -375,7 +387,6 @@ void mcnvGUI (){
     svFilepathBox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 	gtk_box_pack_start (GTK_BOX ( svFilepathBox ), svLabel2, 0, 0, 5);
 	
-    
 	cnRadioBox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 	g_object_set (GTK_BOX ( cnRadioBox ), "margin-top", 5, NULL);
 	gtk_box_pack_start (GTK_BOX ( cnRadioBox ), cnLabel1, 0, 0, 2);
@@ -428,7 +439,7 @@ void mcnvGUI (){
 	
 	box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 5);
 	
-       gtk_box_pack_start (GTK_BOX ( box ), descriptionBox, 0, 0, 0);
+    gtk_box_pack_start (GTK_BOX ( box ), descriptionBox, 0, 0, 0);
 	gtk_box_pack_start (GTK_BOX ( box ), hline1, 0, 0, 0);
     
     gtk_box_pack_start (GTK_BOX ( box ), parametertitleBox, 0, 0, 0);
@@ -466,32 +477,7 @@ void mcnvGUI (){
     gtk_box_pack_start (GTK_BOX ( box ), runBox, 0, 0, 0);
     gtk_box_pack_start (GTK_BOX ( box ), hline8, 0, 0, 0);
     
-    
-	//gtk_box_pack_start (GTK_BOX ( box ), genderBox, 0, 0, 0);
-	//gtk_box_pack_start (GTK_BOX ( box ), hline1, 0, 0, 0);
-	
-	
-	//gtk_box_pack_start (GTK_BOX ( box ), matchRadioBox, 0, 0, 0);
-	//gtk_box_pack_start (GTK_BOX ( box ), hline2, 0, 0, 0);
-	
-	//gtk_box_pack_start (GTK_BOX ( box ), rdChooseBox, 0, 0, 0);
-	//gtk_box_pack_start (GTK_BOX ( box ), rdFilepathBox, 0, 0, 0);
-	//gtk_box_pack_start (GTK_BOX ( box ), hline3, 0, 0, 0);
-	
-	//gtk_box_pack_start (GTK_BOX ( box ), svChooseBox, 0, 0, 0);
-	//gtk_box_pack_start (GTK_BOX ( box ), svFilepathBox, 0, 0, 0);
-	//gtk_box_pack_start (GTK_BOX ( box ), hline4, 0, 0, 0);
-
-	//gtk_box_pack_start (GTK_BOX ( box ), cnRadioBox, 0, 0, 0);
-	//gtk_box_pack_start (GTK_BOX ( box ), cnChooseBox, 0, 0, 0);
-	//gtk_box_pack_start (GTK_BOX ( box ), cnFilepathBox, 0, 0, 0);
-	//gtk_box_pack_start (GTK_BOX ( box ), hline5, 0, 0, 0);
-	
-	//gtk_box_pack_start ( GTK_BOX ( box ), outputBoxFilepath, 0, 0, 0);
-	//gtk_box_pack_start ( GTK_BOX ( box ), runBox, 0, 0, 0);
-	
-	///////////////////////////////////////////////////////
-	
+    ///////////////////////////////////////////////////////
 	
 	/*********************** CHECK **************************/
 	
@@ -500,7 +486,6 @@ void mcnvGUI (){
 		gtk_widget_set_sensitive (cnLabel2, FALSE);
 		gtk_widget_set_sensitive (cnLabel3, FALSE);
 		gtk_widget_set_sensitive (cnButton, FALSE);
-		
 	}
     
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON ( matchRadioNo )) == TRUE) {
@@ -516,7 +501,6 @@ void mcnvGUI (){
 	
 	gtk_container_add (GTK_CONTAINER ( window ), box);
 	
-	
 	gtk_widget_show_all ( window );
-	
+
 }

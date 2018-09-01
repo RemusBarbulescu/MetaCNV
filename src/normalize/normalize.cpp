@@ -12,7 +12,7 @@ void normalize(std::vector<NewSegmentFrame> &cnv, std::vector <cnvNatorFrame> &c
 		
 		// Normalizing SVDetect values
 		e_factor = pow((1 + (cnv[i].svValue/100)), 0.75 * cnv[i].svValue);
-		cnv[i].svValue = cnv[i].svValue * e_factor;
+		cnv[i].svValue = cnv[i].svValue ; //* e_factor;
 		
 		//Checking whether the value of the cnv was inserted into the vector before
 		if (searchRD == freqRD.end()){

@@ -11,7 +11,7 @@ void normalizeF(std::vector<NewSegmentFrame> &cnv, std::vector <cnvNatorFrame> &
 		auto searchRD = freqRD.find(cnv[i].rdValue);
 		
 		e_factor = pow((1 + (cnv[i].svValue/100)), 0.75 * cnv[i].svValue);
-		cnv[i].svValue = cnv[i].svValue * e_factor;
+		cnv[i].svValue = cnv[i].svValue ;//* e_factor;
 		
 		if (searchRD == freqRD.end()){
 				freqRD.insert(std::pair<float, int>(cnv[i].rdValue, 0));

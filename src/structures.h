@@ -31,7 +31,7 @@ struct cnvFrame{
 	chr(chr), _start(_start), _end(_end), value(value), rdValue(rdValue), svValue(svValue), comment(comment) {}
 };
 
-struct geneFrame{
+struct exonFrame{
 	std::string chr;
 	std::string gid; //Gene ID
 	std::string biotype;
@@ -41,6 +41,17 @@ struct geneFrame{
 	int _start; // Exon start
 	int _end; // Exon end
 };
+
+struct geneFrame{
+	std::string chr;
+	std::string gid; //Gene ID
+	std::string biotype;
+	std::string name;
+	std::string strand;
+	int _start; // Exon start
+	int _end; // Exon end
+};
+
 
 struct cnvNatorFrame{
 	std::string mutation;
@@ -54,6 +65,8 @@ extern std::vector <cnvNatorFrame> cnvNatorXY;*/
 //extern GtkWidget *runLabel;
 extern std::string gender;
 extern std::string match;
+extern std::string matchGenes;
+extern std::string matchExons;
 extern std::string filename;
 extern std::string filenameXY;
 extern std::string readDepth_filepath;

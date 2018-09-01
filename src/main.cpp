@@ -14,13 +14,14 @@
 
 std::string gender = "";
 std::string match = "";
+std::string matchGenes = "";
+std::string matchExons = "";
 std::string filename = "";
 std::string filenameXY = "";
 std::string readDepth_filepath = "";
 std::string svdetect_filepath = "";
 std::string cnvNator_option = "";
 std::string cnvNator_filepath = "";
-
 
 int main(int argc, char *argv[]){
 	
@@ -30,14 +31,11 @@ int main(int argc, char *argv[]){
 	std::vector <cnvNatorFrame> cnvNatorXY;
 	gtk_init (&argc, &argv);
 	
-		
 	mcnvGUI();
 	
 	gtk_main();
 		
 	clock_t start_t = clock();
-
-	
 	
 	/* Checking the gender and also if 
 	 * cnvNator is included in the input files

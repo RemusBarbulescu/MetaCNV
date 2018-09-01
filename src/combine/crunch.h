@@ -41,7 +41,6 @@ std::vector <NewSegmentFrame> &segment,std::vector <NewSegmentFrame> &segmentXY)
 		else
 			bufferXY.push_back ( segBuffer );
 		
-
 		segBuffer._start = rd[i]._end; // inserting end value
 		if ( segBuffer.chr != "Y" && segBuffer.chr != "X" )
 			buffer.push_back ( segBuffer );

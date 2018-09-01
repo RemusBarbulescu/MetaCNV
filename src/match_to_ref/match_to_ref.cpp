@@ -76,11 +76,11 @@ void match_to_ref(std::string filepath)
 	cnv_out.open(match_filepath);
 	
 	// creating gene vectors per chromosome
-	std::vector <std::vector<geneFrame>> gene(24);
+	std::vector <std::vector<exonFrame>> gene(24);
 	
 	std::vector <dataFrame> cnv;
 	dataFrame Cbuffer; // cnv buffer
-	geneFrame Gbuffer; // gene buffer
+	exonFrame Gbuffer; // gene buffer
 	std::string line;
 	std::vector <std::string> lineSplit;
 	

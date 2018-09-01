@@ -48,8 +48,8 @@ struct geneFrame{
 	std::string biotype;
 	std::string name;
 	std::string strand;
-	int _start; // Exon start
-	int _end; // Exon end
+	int _start; // Gene start
+	int _end; // Gene end
 };
 
 

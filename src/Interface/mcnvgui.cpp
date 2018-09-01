@@ -137,8 +137,7 @@ static void run_app (GtkWidget *widget, gpointer window){
 			gtk_label_set_text (GTK_LABEL ( FileNotSelectedLabel ), "MetaCNV output file not set!");
 		}
 		
-		if (::readDepth_filepath != "" && ::svdetect_filepath != "" && ::cnvNator_filepath != "" 
-		&& ::filename != ".dat"){
+		if (::readDepth_filepath != "" && ::svdetect_filepath != "" && ::cnvNator_filepath != "" && ::filename != ".dat"){
 			
 			if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON ( genderRadioMale )) == TRUE){
 				
@@ -242,7 +241,7 @@ static void run_app (GtkWidget *widget, gpointer window){
 			gtk_main_quit();
 		}
 	}
-	
+	gtk_label_set_text (GTK_LABEL ( FileNotSelectedLabel ), "MetaCNV is running .... " ); //this is not working 
 }
 
 void mcnvGUI (){

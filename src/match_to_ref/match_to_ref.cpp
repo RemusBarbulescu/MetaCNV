@@ -11,8 +11,7 @@
 std::ofstream cnv_out;
 
 template <typename T, typename U, typename P>
-bool check_and_output(T cnv_chr, U cnv_start, U cnv_end, U cnv_end_next, P cnv_value,
-T gene_chr, T gene_id, T biotype, T name, T strand, T exon_id, U exon_start, U exon_end){
+bool check_and_output(T cnv_chr, U cnv_start, U cnv_end, U cnv_end_next, P cnv_value, T gene_chr, T gene_id, T biotype, T name, T strand, T exon_id, U exon_start, U exon_end){
 	
 	//cnv starts before and ends after the exon
 
@@ -71,16 +70,16 @@ void printProgBar( float percent );
 void match_to_ref(std::string filepath)
 {
 	std::ifstream cnv_in(filepath);
-	std::ifstream gene_in("../Input Files/Homo_sapiens.GRCh38.84_onlyExons.gtf");
+	std::ifstream exon_in("../Input Files/Homo_sapiens.GRCh38.84_onlyExons.gtf");
 	std::string match_filepath = "../Output Files/matched_to_refGenome/MetaCNVoutput_mappedtoGRCh38.84_exons_" + ::filename;
 	cnv_out.open(match_filepath);
 	
-	// creating gene vectors per chromosome
-	std::vector <std::vector<exonFrame>> gene(24);
+	// creating exon vectors per chromosome
+	std::vector <std::vector<exonFrame>> exon(24);
 	
 	std::vector <dataFrame> cnv;
 	dataFrame Cbuffer; // cnv buffer
-	exonFrame Gbuffer; // gene buffer
+	exonFrame Gbuffer; // exon buffer
 	std::string line;
 	std::vector <std::string> lineSplit;
     
@@ -100,12 +99,11 @@ void match_to_ref(std::string filepath)
 				lineSplit.clear();
 			}
 	}
-	while(std::getline(gene_in, line)) {
+	while(std::getline(exon_in, line)) {
 		
 		boost::split(lineSplit, line, boost::is_any_of("\t"));
 		
-		if (lineSplit[0] != "chr" && lineSplit[0] != "Chr" && lineSplit[0] != "CHR" 
-			&& lineSplit[0] != "chromosome" && lineSplit[0] != "Chromosome"){
+		if (lineSplit[0] != "chr" && lineSplit[0] != "Chr" && lineSplit[0] != "CHR" && lineSplit[0] != "chromosome" && lineSplit[0] != "Chromosome"){
 			
 			Gbuffer.chr = lineSplit[1];
 			Gbuffer.gid = lineSplit[2];
@@ -118,122 +116,122 @@ void match_to_ref(std::string filepath)
 			
 			if (lineSplit[1] == "1"){
 				
-				gene[0].push_back(Gbuffer);
+				exon[0].push_back(Gbuffer);
 				
 			}
 			if (lineSplit[1] == "2"){
 				
-				gene[1].push_back(Gbuffer);
+				exon[1].push_back(Gbuffer);
 				
 			}
 			if (lineSplit[1] == "3"){
 				
-				gene[2].push_back(Gbuffer);
+				exon[2].push_back(Gbuffer);
 				
 			}
 			if (lineSplit[1] == "4"){
 				
-				gene[3].push_back(Gbuffer);
+				exon[3].push_back(Gbuffer);
 				
 			}
 			if (lineSplit[1] == "5"){
 				
-				gene[4].push_back(Gbuffer);
+				exon[4].push_back(Gbuffer);
 				
 			}
 			if (lineSplit[1] == "6"){
 				
-				gene[5].push_back(Gbuffer);
+				exon[5].push_back(Gbuffer);
 				
 			}
 			if (lineSplit[1] == "7"){
 				
-				gene[6].push_back(Gbuffer);
+				exon[6].push_back(Gbuffer);
 				
 			}
 			if (lineSplit[1] == "8"){
 				
-				gene[7].push_back(Gbuffer);
+				exon[7].push_back(Gbuffer);
 				
 			}
 			if (lineSplit[1] == "9"){
 				
-				gene[8].push_back(Gbuffer);
+				exon[8].push_back(Gbuffer);
 				
 			}
 			if (lineSplit[1] == "10"){
 				
-				gene[9].push_back(Gbuffer);
+				exon[9].push_back(Gbuffer);
 				
 			}
 			if (lineSplit[1] == "11"){
 				
-				gene[10].push_back(Gbuffer);
+				exon[10].push_back(Gbuffer);
 				
 			}
 			if (lineSplit[1] == "12"){
 				
-				gene[11].push_back(Gbuffer);
+				exon[11].push_back(Gbuffer);
 				
 			}
 			if (lineSplit[1] == "13"){
 				
-				gene[12].push_back(Gbuffer);
+				exon[12].push_back(Gbuffer);
 				
 			}
 			if (lineSplit[1] == "14"){
 				
-				gene[13].push_back(Gbuffer);
+				exon[13].push_back(Gbuffer);
 				
 			}
 			if (lineSplit[1] == "15"){
 				
-				gene[14].push_back(Gbuffer);
+				exon[14].push_back(Gbuffer);
 				
 			}
 			if (lineSplit[1] == "16"){
 				
-				gene[15].push_back(Gbuffer);
+				exon[15].push_back(Gbuffer);
 				
 			}
 			if (lineSplit[1] == "17"){
 				
-				gene[16].push_back(Gbuffer);
+				exon[16].push_back(Gbuffer);
 				
 			}
 			if (lineSplit[1] == "18"){
 				
-				gene[17].push_back(Gbuffer);
+				exon[17].push_back(Gbuffer);
 				
 			}
 			if (lineSplit[1] == "19"){
 				
-				gene[18].push_back(Gbuffer);
+				exon[18].push_back(Gbuffer);
 				
 			}
 			if (lineSplit[1] == "20"){
 				
-				gene[19].push_back(Gbuffer);
+				exon[19].push_back(Gbuffer);
 				
 			}
 			if (lineSplit[1] == "21"){
 				
-				gene[20].push_back(Gbuffer);
+				exon[20].push_back(Gbuffer);
 				
 			}
 			if (lineSplit[1] == "22"){
 				
-				gene[21].push_back(Gbuffer);
+				exon[21].push_back(Gbuffer);
 				
 			}
 			if (lineSplit[1] == "X"){
 				
-				gene[22].push_back(Gbuffer);
+				exon[22].push_back(Gbuffer);
 				
 			}
 			if (lineSplit[1] == "Y"){
 				
-				gene[23].push_back(Gbuffer);
+				exon[23].push_back(Gbuffer);
 				
 			}
 			
@@ -243,176 +241,176 @@ void match_to_ref(std::string filepath)
 	
 	for (int i = 0; i < cnv.size(); ++i){
 		float p = (i / (float) cnv.size()) * 100.0;
-		printProgBar(p);
+		//printProgBar(p);
 		if (cnv[i].chr == "1"){
-			for (int j = 0; j < gene[0].size(); j++){
+			for (int j = 0; j < exon[0].size(); j++){
 				check_and_output(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv[i+1]._end, cnv[i].value,
-				gene[0][j].chr, gene[0][j].gid, gene[0][j].biotype, gene[0][j].name, gene[0][j].strand, gene[0][j].eid,
-				gene[0][j]._start, gene[0][j]._end);
+				exon[0][j].chr, exon[0][j].gid, exon[0][j].biotype, exon[0][j].name, exon[0][j].strand, exon[0][j].eid,
+				exon[0][j]._start, exon[0][j]._end);
 			}
 		}
 		if (cnv[i].chr == "2"){
-			for (int j = 0; j < gene[1].size(); j++){
+			for (int j = 0; j < exon[1].size(); j++){
 				check_and_output(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv[i+1]._end, cnv[i].value,
-				gene[1][j].chr, gene[1][j].gid, gene[1][j].biotype, gene[1][j].name, gene[1][j].strand, gene[1][j].eid,
-				gene[1][j]._start, gene[1][j]._end);
+				exon[1][j].chr, exon[1][j].gid, exon[1][j].biotype, exon[1][j].name, exon[1][j].strand, exon[1][j].eid,
+				exon[1][j]._start, exon[1][j]._end);
 			}
 		}
 
 		if (cnv[i].chr == "3"){
-			for (int j = 0; j < gene[2].size(); j++){
+			for (int j = 0; j < exon[2].size(); j++){
 				check_and_output(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv[i+1]._end, cnv[i].value,
-				gene[2][j].chr, gene[2][j].gid, gene[2][j].biotype, gene[2][j].name, gene[2][j].strand, gene[2][j].eid,
-				gene[2][j]._start, gene[2][j]._end);
+				exon[2][j].chr, exon[2][j].gid, exon[2][j].biotype, exon[2][j].name, exon[2][j].strand, exon[2][j].eid,
+				exon[2][j]._start, exon[2][j]._end);
 			}
 		}
 		if (cnv[i].chr == "4"){
-			for (int j = 0; j < gene[3].size(); j++){
+			for (int j = 0; j < exon[3].size(); j++){
 				check_and_output(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv[i+1]._end, cnv[i].value,
-				gene[3][j].chr, gene[3][j].gid, gene[3][j].biotype, gene[3][j].name, gene[3][j].strand, gene[3][j].eid,
-				gene[3][j]._start, gene[3][j]._end);
+				exon[3][j].chr, exon[3][j].gid, exon[3][j].biotype, exon[3][j].name, exon[3][j].strand, exon[3][j].eid,
+				exon[3][j]._start, exon[3][j]._end);
 			}
 		}
 
 		if (cnv[i].chr == "5"){
-			for (int j = 0; j < gene[4].size(); j++){
+			for (int j = 0; j < exon[4].size(); j++){
 				check_and_output(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv[i+1]._end, cnv[i].value,
-				gene[4][j].chr, gene[4][j].gid, gene[4][j].biotype, gene[4][j].name, gene[4][j].strand, gene[4][j].eid,
-				gene[4][j]._start, gene[4][j]._end);
+				exon[4][j].chr, exon[4][j].gid, exon[4][j].biotype, exon[4][j].name, exon[4][j].strand, exon[4][j].eid,
+				exon[4][j]._start, exon[4][j]._end);
 			}
 		}
 		
 		if (cnv[i].chr == "6"){
-			for (int j = 0; j < gene[5].size(); j++){
+			for (int j = 0; j < exon[5].size(); j++){
 				check_and_output(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv[i+1]._end, cnv[i].value,
-				gene[5][j].chr, gene[5][j].gid, gene[5][j].biotype, gene[5][j].name, gene[5][j].strand, gene[5][j].eid,
-				gene[5][j]._start, gene[5][j]._end);
+				exon[5][j].chr, exon[5][j].gid, exon[5][j].biotype, exon[5][j].name, exon[5][j].strand, exon[5][j].eid,
+				exon[5][j]._start, exon[5][j]._end);
 			}
 		}
 		if (cnv[i].chr == "7"){
-			for (int j = 0; j < gene[6].size(); j++){
+			for (int j = 0; j < exon[6].size(); j++){
 				check_and_output(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv[i+1]._end, cnv[i].value,
-				gene[6][j].chr, gene[6][j].gid, gene[6][j].biotype, gene[6][j].name, gene[6][j].strand, gene[6][j].eid,
-				gene[6][j]._start, gene[6][j]._end);
+				exon[6][j].chr, exon[6][j].gid, exon[6][j].biotype, exon[6][j].name, exon[6][j].strand, exon[6][j].eid,
+				exon[6][j]._start, exon[6][j]._end);
 			}
 		}
 		if (cnv[i].chr == "8"){
-			for (int j = 0; j < gene[7].size(); j++){
+			for (int j = 0; j < exon[7].size(); j++){
 				check_and_output(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv[i+1]._end, cnv[i].value,
-				gene[7][j].chr, gene[7][j].gid, gene[7][j].biotype, gene[7][j].name, gene[7][j].strand, gene[7][j].eid,
-				gene[7][j]._start, gene[7][j]._end);
+				exon[7][j].chr, exon[7][j].gid, exon[7][j].biotype, exon[7][j].name, exon[7][j].strand, exon[7][j].eid,
+				exon[7][j]._start, exon[7][j]._end);
 			}
 		}
 		if (cnv[i].chr == "9"){
-			for (int j = 0; j < gene[8].size(); j++){
+			for (int j = 0; j < exon[8].size(); j++){
 				check_and_output(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv[i+1]._end, cnv[i].value,
-				gene[8][j].chr, gene[8][j].gid, gene[8][j].biotype, gene[8][j].name, gene[8][j].strand, gene[8][j].eid,
-				gene[8][j]._start, gene[8][j]._end);
+				exon[8][j].chr, exon[8][j].gid, exon[8][j].biotype, exon[8][j].name, exon[8][j].strand, exon[8][j].eid,
+				exon[8][j]._start, exon[8][j]._end);
 			}
 		}
 		if (cnv[i].chr == "10"){
-			for (int j = 0; j < gene[9].size(); j++){
+			for (int j = 0; j < exon[9].size(); j++){
 				check_and_output(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv[i+1]._end, cnv[i].value,
-				gene[9][j].chr, gene[9][j].gid, gene[9][j].biotype, gene[9][j].name, gene[9][j].strand, gene[9][j].eid,
-				gene[9][j]._start, gene[9][j]._end);
+				exon[9][j].chr, exon[9][j].gid, exon[9][j].biotype, exon[9][j].name, exon[9][j].strand, exon[9][j].eid,
+				exon[9][j]._start, exon[9][j]._end);
 			}
 		}
 		if (cnv[i].chr == "11"){
-			for (int j = 0; j < gene[10].size(); j++){
+			for (int j = 0; j < exon[10].size(); j++){
 				check_and_output(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv[i+1]._end, cnv[i].value,
-				gene[10][j].chr, gene[10][j].gid, gene[10][j].biotype, gene[10][j].name, gene[10][j].strand, gene[10][j].eid,
-				gene[10][j]._start, gene[10][j]._end);
+				exon[10][j].chr, exon[10][j].gid, exon[10][j].biotype, exon[10][j].name, exon[10][j].strand, exon[10][j].eid,
+				exon[10][j]._start, exon[10][j]._end);
 			}
 		}
 		if (cnv[i].chr == "12"){
-			for (int j = 0; j < gene[11].size(); j++){
+			for (int j = 0; j < exon[11].size(); j++){
 				check_and_output(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv[i+1]._end, cnv[i].value,
-				gene[11][j].chr, gene[11][j].gid, gene[11][j].biotype, gene[11][j].name, gene[11][j].strand, gene[11][j].eid,
-				gene[11][j]._start, gene[11][j]._end); 
+				exon[11][j].chr, exon[11][j].gid, exon[11][j].biotype, exon[11][j].name, exon[11][j].strand, exon[11][j].eid,
+				exon[11][j]._start, exon[11][j]._end); 
 			}
 		}
 		if (cnv[i].chr == "13"){
-			for (int j = 0; j < gene[12].size(); j++){
+			for (int j = 0; j < exon[12].size(); j++){
 				check_and_output(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv[i+1]._end, cnv[i].value,
-				gene[12][j].chr, gene[12][j].gid, gene[12][j].biotype, gene[12][j].name, gene[12][j].strand, gene[12][j].eid,
-				gene[12][j]._start, gene[12][j]._end);
+				exon[12][j].chr, exon[12][j].gid, exon[12][j].biotype, exon[12][j].name, exon[12][j].strand, exon[12][j].eid,
+				exon[12][j]._start, exon[12][j]._end);
 			}
 		}
 		if (cnv[i].chr == "14"){
-			for (int j = 0; j < gene[13].size(); j++){
+			for (int j = 0; j < exon[13].size(); j++){
 				check_and_output(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv[i+1]._end, cnv[i].value,
-				gene[13][j].chr, gene[13][j].gid, gene[13][j].biotype, gene[13][j].name, gene[13][j].strand, gene[13][j].eid,
-				gene[13][j]._start, gene[13][j]._end);
+				exon[13][j].chr, exon[13][j].gid, exon[13][j].biotype, exon[13][j].name, exon[13][j].strand, exon[13][j].eid,
+				exon[13][j]._start, exon[13][j]._end);
 			}
 		}
 		if (cnv[i].chr == "15"){
-			for (int j = 0; j < gene[14].size(); j++){
+			for (int j = 0; j < exon[14].size(); j++){
 				check_and_output(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv[i+1]._end, cnv[i].value,
-				gene[14][j].chr, gene[14][j].gid, gene[14][j].biotype, gene[14][j].name, gene[14][j].strand, gene[14][j].eid,
-				gene[14][j]._start, gene[14][j]._end);
+				exon[14][j].chr, exon[14][j].gid, exon[14][j].biotype, exon[14][j].name, exon[14][j].strand, exon[14][j].eid,
+				exon[14][j]._start, exon[14][j]._end);
 			}
 		}
 		if (cnv[i].chr == "16"){
-			for (int j = 0; j < gene[15].size(); j++){
+			for (int j = 0; j < exon[15].size(); j++){
 				check_and_output(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv[i+1]._end, cnv[i].value,
-				gene[15][j].chr, gene[15][j].gid, gene[15][j].biotype, gene[15][j].name, gene[15][j].strand, gene[15][j].eid,
-				gene[15][j]._start, gene[15][j]._end);
+				exon[15][j].chr, exon[15][j].gid, exon[15][j].biotype, exon[15][j].name, exon[15][j].strand, exon[15][j].eid,
+				exon[15][j]._start, exon[15][j]._end);
 			}
 		}
 		if (cnv[i].chr == "17"){
-			for (int j = 0; j < gene[16].size(); j++){
+			for (int j = 0; j < exon[16].size(); j++){
 				check_and_output(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv[i+1]._end, cnv[i].value,
-				gene[16][j].chr, gene[16][j].gid, gene[16][j].biotype, gene[16][j].name, gene[16][j].strand, gene[16][j].eid,
-				gene[16][j]._start, gene[16][j]._end);
+				exon[16][j].chr, exon[16][j].gid, exon[16][j].biotype, exon[16][j].name, exon[16][j].strand, exon[16][j].eid,
+				exon[16][j]._start, exon[16][j]._end);
 			}
 		}
 		if (cnv[i].chr == "18"){
-			for (int j = 0; j < gene[17].size(); j++){
+			for (int j = 0; j < exon[17].size(); j++){
 				check_and_output(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv[i+1]._end, cnv[i].value,
-				gene[17][j].chr, gene[17][j].gid, gene[17][j].biotype, gene[17][j].name, gene[17][j].strand, gene[17][j].eid,
-				gene[17][j]._start, gene[17][j]._end);
+				exon[17][j].chr, exon[17][j].gid, exon[17][j].biotype, exon[17][j].name, exon[17][j].strand, exon[17][j].eid,
+				exon[17][j]._start, exon[17][j]._end);
 			}
 		}
 		if (cnv[i].chr == "19"){
-			for (int j = 0; j < gene[18].size(); j++){
+			for (int j = 0; j < exon[18].size(); j++){
 				check_and_output(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv[i+1]._end, cnv[i].value,
-				gene[18][j].chr, gene[18][j].gid, gene[18][j].biotype, gene[18][j].name, gene[18][j].strand, gene[18][j].eid,
-				gene[18][j]._start, gene[18][j]._end);
+				exon[18][j].chr, exon[18][j].gid, exon[18][j].biotype, exon[18][j].name, exon[18][j].strand, exon[18][j].eid,
+				exon[18][j]._start, exon[18][j]._end);
 			}
 		}
 		if (cnv[i].chr == "20"){
-			for (int j = 0; j < gene[19].size(); j++){
+			for (int j = 0; j < exon[19].size(); j++){
 				check_and_output(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv[i+1]._end, cnv[i].value,
-				gene[19][j].chr, gene[19][j].gid, gene[19][j].biotype, gene[19][j].name, gene[19][j].strand, gene[19][j].eid,
-				gene[19][j]._start, gene[19][j]._end);
+				exon[19][j].chr, exon[19][j].gid, exon[19][j].biotype, exon[19][j].name, exon[19][j].strand, exon[19][j].eid,
+				exon[19][j]._start, exon[19][j]._end);
 			}
 		}
 		if (cnv[i].chr == "21"){
-			for (int j = 0; j < gene[20].size(); j++){
+			for (int j = 0; j < exon[20].size(); j++){
 				check_and_output(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv[i+1]._end, cnv[i].value,
-				gene[20][j].chr, gene[20][j].gid, gene[20][j].biotype, gene[20][j].name, gene[20][j].strand, gene[20][j].eid,
-				gene[20][j]._start, gene[20][j]._end);
+				exon[20][j].chr, exon[20][j].gid, exon[20][j].biotype, exon[20][j].name, exon[20][j].strand, exon[20][j].eid,
+				exon[20][j]._start, exon[20][j]._end);
 			}
 		}
 		if (cnv[i].chr == "22"){
-			for (int j = 0; j < gene[21].size(); j++){
+			for (int j = 0; j < exon[21].size(); j++){
 				check_and_output(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv[i+1]._end, cnv[i].value,
-				gene[21][j].chr, gene[21][j].gid, gene[21][j].biotype, gene[21][j].name, gene[21][j].strand, gene[21][j].eid,
-				gene[21][j]._start, gene[21][j]._end);
+				exon[21][j].chr, exon[21][j].gid, exon[21][j].biotype, exon[21][j].name, exon[21][j].strand, exon[21][j].eid,
+				exon[21][j]._start, exon[21][j]._end);
 			}
 		}
 		if (cnv[i].chr == "X"){
-			for (int j = 0; j < gene[22].size(); j++){
+			for (int j = 0; j < exon[22].size(); j++){
 				check_and_output(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv[i+1]._end, cnv[i].value,
-				gene[22][j].chr, gene[22][j].gid, gene[22][j].biotype, gene[22][j].name, gene[22][j].strand, gene[22][j].eid,
-				gene[22][j]._start, gene[22][j]._end);
+				exon[22][j].chr, exon[22][j].gid, exon[22][j].biotype, exon[22][j].name, exon[22][j].strand, exon[22][j].eid,
+				exon[22][j]._start, exon[22][j]._end);
 			}
 		}
 		if (cnv[i].chr == "Y"){
-			for (int j = 0; j < gene[23].size(); j++){
+			for (int j = 0; j < exon[23].size(); j++){
 				check_and_output(cnv[i].chr, cnv[i]._start, cnv[i]._end, cnv[i+1]._end, cnv[i].value,
-				gene[23][j].chr, gene[23][j].gid, gene[23][j].biotype, gene[23][j].name, gene[23][j].strand, gene[23][j].eid,
-				gene[23][j]._start, gene[23][j]._end);
+				exon[23][j].chr, exon[23][j].gid, exon[23][j].biotype, exon[23][j].name, exon[23][j].strand, exon[23][j].eid,
+				exon[23][j]._start, exon[23][j]._end);
 			}
 		}
 	}

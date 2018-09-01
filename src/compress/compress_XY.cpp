@@ -1,6 +1,6 @@
 #include "../compress/compress_XY.h"
 #include "../match_to_ref/match_to_ref.h"
-#include "../match_to_ref/match_to_ref_genes.h"
+//#include "../match_to_ref/match_to_ref_genes.h"
 
 void compress_XY(std::vector<cnvFrame> const &cnvXY){
 	
@@ -44,8 +44,12 @@ void compress_XY(std::vector<cnvFrame> const &cnvXY){
 			}
 		}
 	}
+    if (::matchGenes == "Yes"){
+		std::cout << "Mapping MetaCNV output (for autosomes) to the reference genome GRCh38.84 on gene level ..." << std::endl;
+		//match_to_ref_genes(filepath);
+	}
 	if (::matchExons == "Yes"){
-		std::cout << "Mapping MetaCNV output (for autosomes) to the reference genome GRCh38.84 ..." << std::endl;
+		std::cout << "Mapping MetaCNV output (for autosomes) to the reference genome GRCh38.84 on exon level ..." << std::endl;
 		match_to_ref(filepath);
 	}
 }

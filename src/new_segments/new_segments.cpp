@@ -53,8 +53,7 @@ bool newSegments(std::vector <cnvNatorFrame> &cnvNator, std::vector <cnvNatorFra
 	std::stringstream nr_decimals;
 	
 	nr_decimals.precision(4);
-	
-	
+		
 	/* Reading input files from readDepth and SVdetect */
 	
 	while(std::getline(readDepth, line)){
@@ -106,7 +105,6 @@ bool newSegments(std::vector <cnvNatorFrame> &cnvNator, std::vector <cnvNatorFra
 	crunch(rd, sv, segment, segmentXY);
 	rd.empty();
 	sv.empty();
-	
 	
 	std::cout << "Normalizing ReadDepth and SVDetect values..." << std::endl;
 	normalize(segment, cnvNator);

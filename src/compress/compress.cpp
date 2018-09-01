@@ -42,8 +42,8 @@ void compress(std::vector<cnvFrame> const &cnv){
 			}
 		}
 	}
-	if (::match == "Yes"){
-		std::cout << "Mapping MetaCNV output (for chr1 -chr22) to the reference genome GRCh38.84 ..." << std::endl;
+	if (::matchExons == "Yes"){
+		std::cout << "Mapping MetaCNV output (for chr1 - chr22) to the reference genome GRCh38.84 ..." << std::endl;
 		match_to_ref(filepath);
 	}
 }

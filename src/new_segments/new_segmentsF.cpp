@@ -47,8 +47,7 @@ bool newSegmentsF(std::vector <cnvNatorFrame> &cnvNator){
 	nr_decimals.precision(4);
 	while(std::getline(readDepth, line)){
 		boost::split(lineSplit, line, boost::is_any_of("\t"));
-		if (lineSplit[0] != "chr" && lineSplit[0] != "Chr" && lineSplit[0] != "CHR" 
-		&& lineSplit[0] != "chromosome" && lineSplit[0] != "Chromosome"){
+		if (lineSplit[0] != "chr" && lineSplit[0] != "Chr" && lineSplit[0] != "CHR" && lineSplit[0] != "chromosome" && lineSplit[0] != "Chromosome"){
 			if (lineSplit[0].size() > 2){
 				lineSplit[0].erase(lineSplit[0].begin(),lineSplit[0].begin()+3); // if a "chr" is present before the 
 			}																// value, it will erase it(e.g.: chr12)

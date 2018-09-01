@@ -1,5 +1,6 @@
 #include "../compress/compressF.h"
 #include "../match_to_ref/match_to_ref.h"
+#include "../match_to_ref/match_to_ref_genes.h"
 
 void compressF(std::vector<cnvFrame> const &cnv){
 			
@@ -41,7 +42,7 @@ void compressF(std::vector<cnvFrame> const &cnv){
 			}
 		}
 	}
-	if (::match == "Yes"){
+	if (::matchExons == "Yes"){
 		std::cout << "Mapping MetaCNV output to the reference genome GRCh38.84 ..." << std::endl;
 		match_to_ref(filepath);
 	}

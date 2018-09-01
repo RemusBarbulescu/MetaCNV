@@ -83,6 +83,9 @@ void match_to_ref(std::string filepath)
 	exonFrame Gbuffer; // gene buffer
 	std::string line;
 	std::vector <std::string> lineSplit;
+    
+    //skipping the first header line in ref file 
+	
 	
     cnv_out << "chr\t" << "metaCNV.start\t" << "metaCNV.end\t" << "metaCNV.cn" << std::endl; 
 	while (std::getline(cnv_in, line)) {

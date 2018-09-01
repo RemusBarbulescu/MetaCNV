@@ -113,7 +113,7 @@ static void run_app (GtkWidget *widget, gpointer window){
 	::filename = gtk_entry_get_text (GTK_ENTRY ( outputEntry ));
 	::filenameXY = ::filename + "_XY.dat";
 	::filename = ::filename + ".dat";
-    gtk_label_set_text (GTK_LABEL ( FileNotSelectedLabel ), "MetaCNV is running .... " );
+    gtk_label_set_text (GTK_LABEL ( FileNotSelectedLabel ), "MetaCNV is running .... " ); // this is not working 
 	
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON ( cnRadioYes )) == TRUE)
 	{
@@ -262,7 +262,7 @@ void mcnvGUI (){
 	
 	cnButton = gtk_button_new_with_label ("Choose filepath");
 	g_signal_connect (cnButton, "clicked", G_CALLBACK (cnvNatorOpen_dialog), window);
-	
+
 	runButton = gtk_button_new_with_label ("  Run MetaCNV  ");
     gtk_widget_set_size_request(runButton, 90, 50);
     GdkRGBA bg_run = { 0.75, 0, 1, 0.5 };
@@ -295,7 +295,7 @@ void mcnvGUI (){
 	cnLabel3 = gtk_label_new ("");
 		
     outputtitleLabel = gtk_label_new ("\tOutput file " );
-	outputLabel1 = gtk_label_new ("\t\tMetaCNV file in path MetaCNV/Output_files/");
+	outputLabel1 = gtk_label_new ("\t\tMetaCNV file in folder MetaCNV/Output_files/");
 	outputLabel2 = gtk_label_new (".dat");
     
     mappingtitleLabel = gtk_label_new ("\tMapping to a reference genome");
